@@ -13,7 +13,7 @@ extern "C"
 #define RTC_MODULE_CHECK(a, str, ret_val)                                             \
   if (!(a))                                                                           \
   {                                                                                   \
-    ESP_LOGE(RTC_MODULE_TAG, "%s:%d (%s):%s", __FILE__, __LINE__, __FUNCTION__, str); \
+    ESP_LOGE("logging_constant", "%s:%d (%s):%s", __FILE__, __LINE__, __FUNCTION__, str); \
     return (ret_val);                                                                 \
   }
 
@@ -74,7 +74,7 @@ void I2S_Init(i2s_mode_t MODE, i2s_bits_per_sample_t BPS)
       .sample_rate = SAMPLE_RATE,
       .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT,
       .channel_format = I2S_CHANNEL_FMT_ALL_LEFT,
-	  .communication_format = (i2s_comm_format_t)I2S_COMM_FORMAT_I2S_MSB,
+	  .communication_format = (i2s_comm_format_t)I2S_COMM_FORMAT_STAND_I2S,
 	  .intr_alloc_flags = ESP_INTR_FLAG_LEVEL3, // lowest interrupt priority
       .dma_buf_count = 5,
       .dma_buf_len = 640,
@@ -129,12 +129,19 @@ void I2S_Init(i2s_mode_t MODE, i2s_bits_per_sample_t BPS)
 
 int I2S_Read(char *data, int numData)
 {
-  return i2s_read_bytes(I2S_NUM_0, (char *)data, numData, portMAX_DELAY);
+
+  //i2s_read_bytes(I2S_NUM_0, (char *)data, numData, portMAX_DELAY);
+
+  size_t bytes_read;
+  return i2s_read(I2S_NUM_0, (char *)data, numData, &bytes_read, portMAX_DELAY);
 }
 
 void I2S_Write(char *data, int numData)
 {
-  i2s_write_bytes(I2S_NUM_0, (const char *)data, numData, portMAX_DELAY);
+  //i2s_write_bytes(I2S_NUM_0, (const char *)data, numData, portMAX_DELAY);
+
+  size_t bytes_written;
+  i2s_write(I2S_NUM_0, (const char *)data, numData, &bytes_written, portMAX_DELAY);
 }
 
 void MakeSampleStereo16(int16_t sample[2],char channels,char bps) {

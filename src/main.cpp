@@ -141,7 +141,7 @@ const int natural = 1;
 //กรองความถี่สูงผ่าน >300Hz  HPF Butterworth Filter. 0-300Hz ช่วงความถี่ต่ำใช้กับโทน CTCSS/DCS ในวิทยุสื่อสารจะถูกรองทิ้ง
 ButterworthFilter hp_filter(300, 8000, ButterworthFilter::ButterworthFilter::Highpass, 1);
 //กรองความถี่ต่ำผ่าน <3.5KHz  LPF Butterworth Filter. ความถี่เสียงที่มากกว่า 3KHz ไม่ใช่ความถี่เสียงคนพูดจะถูกกรองทิ้ง
-ButterworthFilter lp_filter(3500, 8000, ButterworthFilter::ButterworthFilter::Lowpass, 2);
+ButterworthFilter lp_filter(4000, 8000, ButterworthFilter::ButterworthFilter::Lowpass, 1);
 #ifdef I2S_INTERNAL
 ButterworthFilter hp16K_filter(300, 16000, ButterworthFilter::ButterworthFilter::Highpass, 1);
 ButterworthFilter lp16K_filter(4000, 16000, ButterworthFilter::ButterworthFilter::Lowpass, 1);
@@ -252,27 +252,27 @@ void defaultConfig()
 	config.aprs_passcode[0] = 0;
 	sprintf(config.aprs_filter, "b/HS*/E2*");
 	sprintf(config.id, "M17AG");
-	sprintf(config.wifi_ssid, "APRSTH");
-	sprintf(config.wifi_pass, "aprsthnetwork");
-	sprintf(config.wifi_ap_ssid, "M17Analog");
+	sprintf(config.wifi_ssid, "");
+	sprintf(config.wifi_pass, "");
+	sprintf(config.wifi_ap_ssid, "M17AnalogGW");
 	config.wifi_ap_pass[0] = 0;
 	config.wifi_power = 44;
 	//	sprintf(config.wifi_ap_pass, "");
-	sprintf(config.reflector_host, "203.150.19.24");
-	sprintf(config.reflector_name, "M17-THA");
+	sprintf(config.reflector_host, "152.70.192.70");
+	sprintf(config.reflector_name, "M17-M17");
 	config.reflector_port = 17000;
-	config.reflector_module = 'D';
+	config.reflector_module = 'Q';
 	sprintf(config.authUser, "admin");
 	sprintf(config.authPass, "admin");
 	sprintf(config.mycall, "N0CALL");
-	config.mymodule = 'R';
+	config.mymodule = 'G';
 	config.aprs = false;
 	config.wifi = true;
-	config.wifi_mode = WIFI_STA_FIX;
+	config.wifi_mode = WIFI_AP_FIX;
 	config.wifi_ch = 1;
-	config.gps_lat = 13.78310;
-	config.gps_lon = 100.40920;
-	config.gps_alt = 5;
+	config.gps_lat = 48.155930;
+	config.gps_lon = 17.161370;
+	config.gps_alt = 100;
 	config.volume = 20;
 	config.mic = 13;
 	config.vox_delay = 0;
@@ -298,7 +298,7 @@ void defaultConfig()
 	config.dtmf = true;
 	config.oled_enable = true;
 	config.oled_timeout = 0;
-	config.timeZone=7;
+	config.timeZone=0;
 	saveEEPROM();
 }
 
@@ -841,7 +841,7 @@ void IRAM_ATTR onTime()
 }
 #endif
 
-const char *lastTitle = "LAST HERT";
+const char *lastTitle = "LAST HEARD";
 
 char pkgList_Find(char *call)
 {
@@ -1610,6 +1610,7 @@ void taskUI(void *pvParameters)
 #endif
 		if (config.sql)
 		{
+			//Serial.printf("SQC Active. VOX Inactive");
 			if (config.sql_active)
 			{
 				if (digitalRead(RSSI_PIN))
@@ -1659,6 +1660,7 @@ void taskUI(void *pvParameters)
 		}
 		else
 		{
+			//Serial.printf("SQC Inactive. VOX Active");
 			// Vox delay and Level
 			if (voxtime < millis())
 			{
@@ -1672,7 +1674,7 @@ void taskUI(void *pvParameters)
 					}
 					else
 					{
-						// Serial.printf("Vox Active ppm=%d\n", mic_level);
+						//Serial.printf("Vox Active mic_level %d with %d ppm_level", mic_level, ppm_Level);
 						vox = true;
 					}
 				}
@@ -1685,7 +1687,7 @@ void taskUI(void *pvParameters)
 					else
 					{
 						vox = false;
-						// Serial.printf("Vox- ppm=%d\n", ppm_Level);
+						//Serial.printf("Vox-ppm=%d\n", ppm_Level);
 					}
 				}
 			}
@@ -2135,13 +2137,18 @@ esp_interface_t check_protocol()
 	char error_buf1[100];
 
 	tcpip_adapter_get_esp_if(&current_esp_interface);
-	if (current_esp_interface == ESP_IF_WIFI_STA)
+	if (current_esp_interface == ESP_IF_WIFI_STA) {
+		// -tge- ugly enum fix
+		current_wifi_interface = WIFI_IF_STA;
 		Serial.println("Interface is ESP_IF_WIFI_STA");
-	else if (current_esp_interface == ESP_IF_WIFI_AP)
+	}
+	else if (current_esp_interface == ESP_IF_WIFI_AP) {
+		// -tge- ugly enum fix
+		current_wifi_interface = WIFI_IF_AP;
 		Serial.println("Interface is ESP_IF_WIFI_AP");
+	}
 	else
 		Serial.println("Unknown interface!!");
-	current_wifi_interface = current_esp_interface;
 	if (current_wifi_interface == WIFI_IF_STA)
 		Serial.println("Interface is WIFI_IF_STA");
 	else if (current_wifi_interface == WIFI_IF_AP)
@@ -2213,7 +2220,16 @@ void taskNetwork(void *pvParameters)
 	if (config.wifi_protocol != 1 && config.wifi_protocol != 3 && config.wifi_protocol != 7)
 		config.wifi_protocol = 7;
 	tcpip_adapter_get_esp_if(&current_esp_interface);
-	current_wifi_interface = current_esp_interface;
+
+	if (current_esp_interface == ESP_IF_WIFI_STA) {
+		// -tge- ugly enum fix
+		current_wifi_interface = WIFI_IF_STA;
+	}
+	else if (current_esp_interface == ESP_IF_WIFI_AP) {
+		// -tge- ugly enum fix
+		current_wifi_interface = WIFI_IF_AP;
+	}
+
 	esp_wifi_set_protocol(current_wifi_interface, config.wifi_protocol);
 	esp_err_t error_code = esp_wifi_get_protocol(current_wifi_interface, &current_protocol);
 	// esp_err_to_name_r(error_code,error_buf1,100);
@@ -2238,6 +2254,7 @@ void taskNetwork(void *pvParameters)
 		serviceHandle();
 		// long now = millis();
 		// wdtNetworkTimer = now;
+		// -tge- maybe remove WIFI_AP_STA_FIX
 		if ((config.wifi) && (config.wifi_mode == WIFI_AP_STA_FIX || config.wifi_mode == WIFI_STA_FIX))
 		{
 			if (WiFi.status() != WL_CONNECTED)
@@ -2249,7 +2266,7 @@ void taskNetwork(void *pvParameters)
 					Serial.print(F("WiFi Connecting to "));
 					Serial.println(config.wifi_ssid);
 					WiFi.disconnect();
-					WiFi.setHostname("M17Hotspot");
+					WiFi.setHostname("M17AnalogGW");
 
 					WiFi.setTxPower((wifi_power_t)config.wifi_power);
 					WiFi.begin(config.wifi_ssid, config.wifi_pass);
@@ -2331,7 +2348,7 @@ void taskNetwork(void *pvParameters)
 						NTP_Timeout = millis() + 86400000;
 						// Serial.println(F("Config NTP"));
 						// setSyncProvider(getNtpTime);
-						configTime(3600 * config.timeZone, 0, "203.150.19.19", "203.150.19.26");
+						configTime(3600 * config.timeZone, 0, "sk.pool.ntp.org");
 						// topBar(WiFi.RSSI());
 						vTaskDelay(3000 / portTICK_PERIOD_MS);
 						if (systemUptime == 0)

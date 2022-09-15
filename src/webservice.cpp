@@ -187,7 +187,7 @@ void setHTML(byte page)
 
 		webString += "<div>CPU Temp: " + String((temprature_sens_read() - 32) / 1.8, 1) + "C</div> \n";
 		webString += "<div>Free Heap:" + String(ESP.getFreeHeap()) + " Byte</div> \n";
-		String uptime = String(hour(tn), DEC) + ":" + String(minute(tn), DEC) + ":" + String(second(tn), DEC);
+		String uptime = String(day(tn) - 1, DEC) + "Days " + String(hour(tn), DEC) + ":" + String(minute(tn), DEC) + ":" + String(second(tn), DEC);
 		webString += "<div>System Uptime: " + uptime + "</div> \n";
 
 		webString += "</td></tr><tr><td>\n";
@@ -573,7 +573,7 @@ void handle_setting()
 	webString += "<div class=\"form-group\">\n";
 	webString += "<label class=\"col-sm-4 col-xs-12 control-label\">OLED Sleep</label>\n";
 	webString += "<div class=\"col-sm-4 col-xs-6\"><select name=\"oled_timeout\" id=\"oled_timeout\">\n";
-	for (int i = 0; i < 600; i += 30)
+	for (int i = 0; i < 1000; i += 30)
 	{
 		if (config.oled_timeout == i)
 			webString += "<option value=\"" + String(i) + "\" selected>" + String(i) + " Sec</option>\n";
@@ -967,7 +967,7 @@ void handle_service()
 
 	webString += "<div class=\"form-group\">\n";
 	webString += "<label class=\"col-sm-3 col-xs-12 control-label\">M17 Host</label>\n";
-	webString += "<div class=\"col-sm-6 col-xs-8\"><input class=\"form-control\" id=\"m17Host\" name=\"m17Host\" type=\"text\" value=\"" + String(config.reflector_host) + "\" /></div>\n";
+	webString += "<div class=\"col-sm-2 col-xs-4\"><input class=\"form-control\" id=\"m17Host\" name=\"m17Host\" type=\"text\" value=\"" + String(config.reflector_host) + "\" /></div>\n";
 	webString += "</div>\n";
 
 	webString += "<div class=\"form-group\">\n";
@@ -1480,6 +1480,10 @@ void handle_system()
 			}
 		}
 	}
+	else if (server.hasArg("REBOOT"))
+	{
+		esp_restart();
+	}
 
 	struct tm tmstruct;
 	char strTime[20];
@@ -1504,7 +1508,7 @@ void handle_system()
 
 	webString += "<form accept-charset=\"UTF-8\" action=\"/system\" class=\"form-horizontal\" id=\"time_form_zone\" method=\"post\">\n";
 	webString += "<div class=\"form-group\">\n";
-	webString += "<td><label class=\"col-sm-8 col-xs-12 control-label\">TIME Zone</label></td>\n";
+	webString += "<td><label class=\"col-sm-2 col-xs-12 control-label\">TIME Zone</label></td>\n";
 	webString += "<td><div class=\"col-sm-2 col-xs-4\" id='time_zone'><input class=\"form-control\" name=\"SetTimeZone\" type=\"text\" value=\"" + String(config.timeZone) + """\" />\n";
 	webString += "</div></td>\n";
 	webString += "<td><input class=\"btn btn-primary\" id=\"setting_time_sumbit\" name=\"updateTimeZone\" type=\"submit\" value=\"Update\" maxlength=\"80\"/></td>\n";
@@ -1522,9 +1526,16 @@ void handle_system()
 	webString += "<form accept-charset=\"UTF-8\" action=\"/system\" class=\"form-horizontal\" id=\"time_form_ntp\" method=\"post\">\n";
 	webString += "<div class=\"form-group\">\n";
 	webString += "<td><label class=\"col-sm-2 col-xs-12 control-label\">NTP_Host</label></td>\n";
-	webString += "<td><div class=\"input-group\" id='ntp_update'><input class=\"form-control\" name=\"SetTimeNtp\" type=\"text\" value=\"203.150.19.26\" />\n";
+	webString += "<td><div class=\"input-group\" id='ntp_update'><input class=\"form-control\" name=\"SetTimeNtp\" type=\"text\" value=\"sk.pool.ntp.org\" />\n";
 	webString += "</div></td>\n";
 	webString += "<td><input class=\"btn btn-primary\" id=\"setting_time_sumbit\" name=\"updateTimeNtp\" type=\"submit\" value=\"NTP Update\" maxlength=\"80\"/></td>\n";
+	webString += "</div>\n</form>\n</tr><tr>\n";
+
+	webString += "<form accept-charset=\"UTF-8\" action=\"/system\" class=\"form-horizontal\" id=\"reboot_form\" method=\"post\">\n";
+	webString += "<div class=\"form-group\">\n";
+	webString += "<td><label class=\"col-sm-2 col-xs-12 control-label\">SYSTEM</label></td>\n";
+	webString += "<td><input type='submit' class=\"btn btn-danger\" name=\"REBOOT\" value='REBOOT'></td>\n";
+
 	webString += "</div>\n</form>\n</tr></table>\n";
 
 	webString += "</div><hr>\n";
@@ -1602,8 +1613,10 @@ void handle_firmware()
 	webString += " <b>(MODEL: Simple)</b>";
 	#endif
 	webString += "<br /><b>Current Firmware Version:</b> V" + String(VERSION) + "\n<br/>";
-	webString += "<b>Develop by:</b> HS5TQA\n<br />";
-	webString += "<b>Chip ID:</b> " + String(strCID) + "\n<hr>";
+	webString += "<b>Develop by:</b> HS5TQA - Modified by OM5AST<br />";
+	webString += "<b>Chip ID:</b> " + String(strCID) + "\n<br/>";
+	webString += "<b>Info</b>: <a href=\"http://github.com/nakhonthai/M17AnalogGateway\" target=\"_blank\">Original sources and project info by HS5TQA</a><br />\n";
+	webString += "<b>Mod info:</b> <a href=\"https://github.com/tomasgeci/M17AnalogGateway\" target=\"_blank\">Modified by OM5AST</a><hr>\n";
 	webString += "<div class = \"col-pad\">\n<h3>Firmware Update</h3>\n";
 	webString += "<form method='POST' action='#' enctype='multipart/form-data' id='upload_form' class=\"form-horizontal\">\n";
 

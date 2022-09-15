@@ -1,7 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#define VERSION "0.8"
+#define VERSION "0.8.5"
 
 //#define DEBUG
 
@@ -73,10 +73,10 @@ typedef struct Config_Struct
 {
 	char id[20];
 	bool wifi_client;
-	char wifi_ssid[20];
-	char wifi_pass[15];
-	char wifi_ap_ssid[20];
-	char wifi_ap_pass[15];
+	char wifi_ssid[32];
+	char wifi_pass[64];
+	char wifi_ap_ssid[32];
+	char wifi_ap_pass[64];
 	char wifi_power;
 	bool aprs;
 	char aprs_mycall[10];
@@ -97,7 +97,7 @@ typedef struct Config_Struct
 	float gps_lon;
 	float gps_alt;
 	bool wifi;
-	char wifi_mode; //WIFI_AP,WIFI_STA,WIFI_AP_STA,WIFI_OFF
+	char wifi_mode; // WIFI_AP,WIFI_STA,WIFI_AP_STA,WIFI_OFF
 	char wifi_ch;
 	uint8_t volume;
 	uint8_t mic;
