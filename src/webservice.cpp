@@ -1508,7 +1508,7 @@ void handle_system()
 
 	webString += "<form accept-charset=\"UTF-8\" action=\"/system\" class=\"form-horizontal\" id=\"time_form_zone\" method=\"post\">\n";
 	webString += "<div class=\"form-group\">\n";
-	webString += "<td><label class=\"col-sm-2 col-xs-12 control-label\">TIME Zone</label></td>\n";
+	webString += "<td><label class=\"col-sm-8 col-xs-12 control-label\">TIME Zone</label></td>\n";
 	webString += "<td><div class=\"col-sm-2 col-xs-4\" id='time_zone'><input class=\"form-control\" name=\"SetTimeZone\" type=\"text\" value=\"" + String(config.timeZone) + """\" />\n";
 	webString += "</div></td>\n";
 	webString += "<td><input class=\"btn btn-primary\" id=\"setting_time_sumbit\" name=\"updateTimeZone\" type=\"submit\" value=\"Update\" maxlength=\"80\"/></td>\n";
