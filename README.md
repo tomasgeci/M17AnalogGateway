@@ -6,7 +6,7 @@ This fork has been created only for my testing/educational purposes and is not i
 
 This fork is not regularly supported and consist of features which I need and therefore it is not exact compatible copy of original. I will backport time-by-time some fixes and features from orignal project but only on non-regular basis. Libraries used in this project are mostly edge versions available, there is no compatibility with original source code by Atten. Anyway, most of this fork is copy from original project with some minor or significant changes.
 
-Thanks friends for undestanding and have a fun with M17.
+Thanks friends for understanding and have a fun with M17.
 
 VY 73 by OM5AST
 
@@ -134,7 +134,7 @@ for Handheld (Baofeng UV5R or similar)
 - Download from https://www.espressif.com/en/support/download/other-tools
 - How-To flash - see example bellow with firmware installation instructions
 
-![ESP32Tool](image/ESP32Tool.png)
+![ESP32Tool](image/ESP32_Tool.png)
 
 ## HowTo Setup
 - TODO: screenshots of setup
