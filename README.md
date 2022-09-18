@@ -4,7 +4,7 @@ I take no responsibility for any damage or improper use of this project. M17 rel
 
 This fork has been created only for my testing/educational purposes and is not intended as a in-place full replacement of perfect original work by Atten (https://github.com/nakhonthai/M17AnalogGateway) - thanks Atten, you did a great piece of work.
 
-This fork is not regularly supported and consist of features which I need and therefore it is not exact compatible copy of original. I will backport time-by-time some fixes and features from orignal project but only on non-regular basis. Libraries used in this project are mostly edge versions available, there is no compatibility with original source code by Atten. Anyway, most of this fork is copy from original project with some minor or significant changes.
+This fork is not regularly supported and consists of features which I need and therefore it is not exact compatible copy of original. I will backport time-by-time some fixes and features from original project but only on non-regular basis. Libraries used in this project are mostly edge versions available, there is no compatibility with original source code by Atten. Anyway, most of this fork is copy from original project with some minor or significant changes.
 
 Thanks friends for understanding and have a fun with M17.
 
