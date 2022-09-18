@@ -138,9 +138,9 @@ byte daysavetime = 1;
 
 const int natural = 1;
 
-//กรองความถี่สูงผ่าน >300Hz  HPF Butterworth Filter. 0-300Hz ช่วงความถี่ต่ำใช้กับโทน CTCSS/DCS ในวิทยุสื่อสารจะถูกรองทิ้ง
+// >300Hz  HPF Butterworth Filter. 0-300Hz ช่วงความถี่ต่ำใช้กับโทน CTCSS/DCS ในวิทยุสื่อสารจะถูกรองทิ้ง
 ButterworthFilter hp_filter(300, 8000, ButterworthFilter::ButterworthFilter::Highpass, 1);
-//กรองความถี่ต่ำผ่าน <3.5KHz  LPF Butterworth Filter. ความถี่เสียงที่มากกว่า 3KHz ไม่ใช่ความถี่เสียงคนพูดจะถูกกรองทิ้ง
+// <3.5KHz  LPF Butterworth Filter. ความถี่เสียงที่มากกว่า 3KHz ไม่ใช่ความถี่เสียงคนพูดจะถูกกรองทิ้ง
 ButterworthFilter lp_filter(4000, 8000, ButterworthFilter::ButterworthFilter::Lowpass, 1);
 #ifdef I2S_INTERNAL
 ButterworthFilter hp16K_filter(300, 16000, ButterworthFilter::ButterworthFilter::Highpass, 1);
@@ -154,7 +154,7 @@ CODEC2 *codec2_1600;
 // and the sampling rate.
 DTMF dtmf = DTMF(160, 8000.0F);
 
-//กำหนดค่าเริ่มต้นใช้โหมดของ Codec2
+// Codec2
 int mode = CODEC2_MODE_3200;
 
 // Queue<char> audioq(300);
@@ -241,7 +241,7 @@ void saveEEPROM()
 #endif
 }
 
-//กำหนดค่าคอนฟิกซ์เริ่มต้น
+// default config
 void defaultConfig()
 {
 	Serial.println(F("Default configure mode!"));
@@ -350,7 +350,7 @@ void ppmUpdate(int adc)
 		ppm_Level = (ppm_Level * 16383) >> 14;
 }
 
-//เข้ารหัสและถอดรหัสเสียง Codec2
+// Codec2
 audio_resample_config_t resample;
 #ifdef I2S_INTERNAL
 uint16_t pcm_out[320];
@@ -764,7 +764,7 @@ hw_timer_t *timer = NULL;
 
 int offset_count = 0;
 // RTC_DATA_ATTR float adcf;
-//แซมปลิ้งเสียง 8,000 ครั้งต่อวินาที ทั้งเข้า ADC และออก DAC
+// Audio sampling 8,000 times per second, both ADC input and DAC output
 #ifndef I2S_INTERNAL
 portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 void IRAM_ATTR onTime()

@@ -7,7 +7,7 @@
 
 #include "main.h"
 
-//ใช้ตัวแปรโกลบอลในไฟล์ main.cpp
+// main.cpp
 extern Configuration config;
 extern TaskHandle_t taskNetworkHandle;
 extern TaskHandle_t taskDSPHandle;

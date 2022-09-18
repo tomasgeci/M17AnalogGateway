@@ -1,7 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#define VERSION "0.8.5"
+#define VERSION "0.10"
 
 //#define DEBUG
 

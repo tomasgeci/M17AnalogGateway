@@ -62,7 +62,7 @@ const unsigned char M17_GPS_TYPE_HANDHELD PROGMEM = 0x02U;
 const unsigned char M17_GPS_CLIENT_M17CLIENT PROGMEM = 0x00U;
 const unsigned char M17_GPS_CLIENT_OPENRTX   PROGMEM = 0x01U;
 
-//ใช้ตัวแปรโกลบอลในไฟล์ main.cpp
+// main.cpp
 extern Configuration config;
 extern bool rxRef;
 extern bool tx;
