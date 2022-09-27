@@ -1,3 +1,5 @@
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://supportukrainenow.org/)
+
 # Info And Disclaimer
 
 I take no responsibility for any damage or improper use of this project. M17 related stuff is intended for experienced users and if you think that you are missing some important info, feel free to visit (https://m17project.org/) or ask on official M17 community channels (https://m17project.org/get-started/community).
