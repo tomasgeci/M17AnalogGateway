@@ -2,20 +2,20 @@
 
 # Info And Disclaimer
 
-I take no responsibility for any damage or improper use of this project. M17 related stuff is intended for experienced users and if you think that you are missing some important info, feel free to visit (https://m17project.org/) or ask on official M17 community channels (https://m17project.org/get-started/community).
+I take no responsibility for any damage or improper use of this project. M17-related stuff is intended for experienced users and if you think that you are missing some important info, feel free to visit (https://m17project.org/) or ask on official M17 community channels (https://m17project.org/get-started/community).
 
-This fork has been created only for my testing/educational purposes and is not intended as a in-place full replacement of perfect original work by Atten (https://github.com/nakhonthai/M17AnalogGateway) - thanks Atten, you did a great piece of work.
+This fork has been created only for my testing/educational purposes and is not intended as an in-place full replacement of perfect original work by Atten (https://github.com/nakhonthai/M17AnalogGateway) - thanks Atten, you did a great piece of work.
 
-This fork is not regularly supported and consists of features which I need and therefore it is not exact compatible copy of original. I will backport time-by-time some fixes and features from original project but only on non-regular basis. Libraries used in this project are mostly edge versions available, there is no compatibility with original source code by Atten. Anyway, most of this fork is copy from original project with some minor or significant changes.
+This fork is not regularly supported and consists of features that I need therefore it is not an exact compatible copy of the original. I will backport time-by-time some fixes and features from the original project but only on a non-regular basis. Libraries used in this project are mostly edge versions available, there is no compatibility with the original source code by Atten. Anyway, most of this fork is a copy of the original project with some minor or significant changes.
 
-Thanks friends for understanding and have a fun with M17.
+Thanks, friends for understanding and have fun with M17.
 
 VY 73 by OM5AST
 
 # M17 Analog Hotspot Gateway Project
 
 How to Make digital voice radio (M17 Digital Voice) analog gateway yourself over the internet width ESP32 NodeMCU/DOIT/DevKIT Module.
-The project made M17AnalogGateway to convert digital voice with M17 mode to Analog Radio.
+The project made M17AnalogGateway convert digital voice with M17 mode to Analog Radio.
 
 ## Features
 
@@ -28,18 +28,18 @@ The project made M17AnalogGateway to convert digital voice with M17 mode to Anal
 * using USB serial for host connection and power supply
 * support Wi-Fi connection (UDP) to Reflector
 * support Web Service config and control system
-* display received and transmit packet on the LED
-* display infomation on OLED display
+* display received and transmit a packet on the LED
+* display information on OLED display
 
 ![esp32dr-test](image/ESP32DR_Simple_Test.png)
 
 ## ESP32DR Simple
 
-ESP32DR Simple Circut is small interface board for connecting to a transceiver.
+ESP32DR Simple Circut is a small interface board for connecting to a transceiver.
 
 * PCB size is 64x58mm
 * PCB Single size
-* RJ11 6 Pin out to Radio (or use dupont wire pins)
+* RJ11 6 Pin out to Radio (or use DuPont wire pins)
 
 ### Schematic
 
@@ -89,7 +89,7 @@ ESP32DR Simple Circut is small interface board for connecting to a transceiver.
 
 ### Transceiver connection
 
-Solder jumper is needed depending on a transceiver.
+A solder jumper is needed depending on the transceiver.
 
 ![ESP32DR_Pinout](image/RJ12Pinout.png)
 
@@ -123,28 +123,28 @@ for Handheld (Baofeng UV5R or similar)
 
 ## M17AG firmware installation
 1. Connect the USB cable to the ESP32 Module.
-2. Download firmware and open the program `ESP32 DOWNLOAD TOOL`, set it in the firmware upload program, set the firmware to `M17_GW_OM5AST_MOD_SIMPLE_*.bin`, location 0x10000 and partitions.bin at 0x8000 and bootloader.bin at 0x1000 and boot.bin at 0xe000. Push `START` button and hold few seconds `BOOT` button on your ESP board. Wait for finish, then reset ESP board. You can see state of the module via serial terminal at `115200bps, 8N1, no-handshake`
+2. Download firmware and open the program `ESP32 DOWNLOAD TOOL`, set it in the firmware upload program, and set the firmware to `M17_GW_OM5AST_MOD_SIMPLE_*.bin`, location 0x10000 and partitions.bin at 0x8000 and bootloader.bin at 0x1000 and boot.bin at 0xe000. Push the `START` button and hold a few seconds `BOOT` button on your ESP board. Wait for a finish, then reset the ESP board. You can see the state of the module via the serial terminal at `115200bps, 8N1, no-handshake`
 3. Go to WiFi AP SSID: `M17AnalogGW` with no password and open a browser to the website http://192.168.4.1 
 4. Then change settings according to your needs
-5. Push BOOT button after TX and RX led glows for more than 3s to Factory Default - only if you need
-6. If you need to reboot device, press shortly `EN` on ESP board
+5. Push the `BOOT` button after TX and RX led glows for more than 3s to Factory Default - only if you need
+6. If you need to reboot the device, press shortly `EN` on the ESP board
 
 ## HowTo Flash
 
 ### ESP32 Flash Download Tools
 
 - Download from https://www.espressif.com/en/support/download/other-tools
-- How-To flash - see example bellow with firmware installation instructions
+- How-To flash - see example below with firmware installation instructions
 
 ![ESP32Tool](image/ESP32_Tool.png)
 
 ## HowTo Setup
-- TODO: screenshots of setup
+- TODO: screenshots of the setup
 
 ## List of M17 reflectors
 - https://reflectors.m17.link/ref-list
 
-## Some English/German/International reflectors to try it out
+## Some English/German/International reflectors to try out
 
 	Name: M17-M17
 	IP: 152.70.192.70
