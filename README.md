@@ -4,8 +4,10 @@
 
 I take no responsibility for any damage or improper use of this project. M17-related stuff is intended for experienced users and if you think that you are missing some important info, feel free to visit (https://m17project.org/) or ask on official M17 community channels (https://m17project.org/get-started/community).
 
+## Credits
 This fork has been created only for my testing/educational purposes and is not intended as an in-place full replacement of perfect original work by Atten (https://github.com/nakhonthai/M17AnalogGateway) - thanks Atten, you did a great piece of work.
 
+## Support
 This fork is not regularly supported and consists of features that I need therefore it is not an exact compatible copy of the original. I will backport time-by-time some fixes and features from the original project but only on a non-regular basis. Libraries used in this project are mostly edge versions available, there is no compatibility with the original source code by Atten. Anyway, most of this fork is a copy of the original project with some minor or significant changes.
 
 Thanks, friends for understanding and have fun with M17.
