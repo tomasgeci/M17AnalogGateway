@@ -120,6 +120,12 @@ for Handheld (Baofeng UV5R or similar)
 
 ![HT-RX](image/ESP32DR_RxOnly.png)
 
+### Mike and speaker connection (no transciever)
+
+- inspired by (https://github.com/nakhonthai/M5DV)
+- use *MAX9814* Adafruit module (or chinese clone)
+- use Baofeng external mike as housing with PTT button
+
 ## Howto Develop
 - Pull and Compile by PlatformIO on the Visual Studio Code.
 
