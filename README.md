@@ -12,7 +12,7 @@ This fork is not regularly supported and consists of features that I need theref
 
 Thanks, friends for understanding and have fun with M17.
 
-VY 73 by OM5AST
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 # M17 Analog Hotspot Gateway Project
 
